@@ -11,7 +11,7 @@ var mv = require('mv');
 
 
 program
-  .version('0.0.1')
+  .version('0.0.4')
   .option('-a, --angular [foldername]', 'Angular Frontend Framework')
   .parse(process.argv);
 
