@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 var program = require('commander');
-var Download = require('download');
+var download = require('url-download');
+
 var extract = require('extract-zip');
 var del = require('delete');
 var mv = require('mv');
@@ -29,12 +30,8 @@ if (program.angular) {
     console.log("Please provide a Folder Name");
   } else {
     console.log('Downloading Angular Framework Frontend');
-    new Download({
-        mode: '755'
-      })
-      .get('https://github.com/WohligTechnology/AngularFrameworkFrontend/archive/master.zip')
-      .dest('./')
-      .run(function(err) {
+    download('https://github.com/WohligTechnology/AngularFrameworkFrontend/archive/master.zip', './')
+      .on('close',function(err) {
         if (err) {
           console.log("Error Downloading Angular Framework Frontend");
           console.log(err);

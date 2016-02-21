@@ -1,6 +1,6 @@
 {
   "name": "wohlig",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Wohlig Technology Frameworks",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,8 @@
   "dependencies": {
     "commander": "^2.9.0",
     "delete": "^0.3.0",
-    "download": "^4.4.3",
     "extract-zip": "^1.4.1",
-    "mv": "^2.1.1"
+    "mv": "^2.1.1",
+    "url-download": "0.0.4"
   }
 }
