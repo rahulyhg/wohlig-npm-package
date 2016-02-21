@@ -1,0 +1,21 @@
+{
+  "name": "wohlig",
+  "version": "0.0.2",
+  "description": "Wohlig Technology Frameworks",
+  "main": "index.js",
+  "scripts": {
+    "test": "wohlig"
+  },
+  "bin": {
+    "wohlig": "./wohlig.js"
+  },
+  "author": "chintan@wohlig.com",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "delete": "^0.3.0",
+    "download": "^4.4.3",
+    "extract-zip": "^1.4.1",
+    "mv": "^2.1.1"
+  }
+}
