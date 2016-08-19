@@ -37,7 +37,7 @@ if (program.generate) {
 
         var controller = fs.readFileSync(__dirname + "/lib/Controller.js");
         console.log(controller);
-        fs.exists('./api/controllers', function(isExist) {
+        fs.exists('api/controllers', function(isExist) {
             if (isExist) {
                 controller = _.replace(controller, new RegExp('NewController', "g"), apiName);
                 var write = fs.writeFileSync("api/controllers/" + apiName + "Controller.js", controller);
@@ -49,18 +49,18 @@ if (program.generate) {
 
         });
 
-        var service = fs.readFileSync(__dirname + "/lib/Service.js");
-        console.log(service);
-        fs.exists('./api/services', function(isExist) {
-            if (isExist) {
-                service = _.replace(service, new RegExp('NewService', "g"), apiName);
-                var write = fs.writeFileSync("api/services/" + apiName + ".js", service);
-                console.log("Service " + apiName + " Generated");
-            } else {
-                console.log("Service Folder not found");
-            }
-
-        });
+        // var service = fs.readFileSync(__dirname + "/lib/Service.js");
+        // console.log(service);
+        // fs.exists('./api/services', function(isExist) {
+        //     if (isExist) {
+        //         service = _.replace(service, new RegExp('NewService', "g"), apiName);
+        //         var write = fs.writeFileSync("api/services/" + apiName + ".js", service);
+        //         console.log("Service " + apiName + " Generated");
+        //     } else {
+        //         console.log("Service Folder not found");
+        //     }
+        //
+        // });
 
 
     }
