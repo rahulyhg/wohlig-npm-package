@@ -13,7 +13,7 @@ var mv = require('mv');
 
 
 program
-    .version('0.0.5')
+    .version('0.0.6')
     .option('-a, --angular [foldername]', 'Angular Frontend Framework')
     .option('-g, --generate [foldername]', 'Generate Frontend Framework')
     .parse(process.argv);
