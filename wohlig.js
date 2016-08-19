@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
+var _ = require('lodash');
 var program = require('commander');
 var download = require('url-download');
 var fs = require("fs");
 var extract = require('extract-zip');
 var del = require('delete');
 var mv = require('mv');
-var copyfiles = require('copyfiles');
+
 // async
 
 
@@ -27,20 +28,39 @@ function complete() {
 }
 
 if (program.generate) {
+
     if (program.generate === true) {
+
         console.log("Please provide a name for the Controller and Service");
     } else {
         console.log("Copying the Content");
+        var apiName = _.upperFirst(program.generate);
+        var controller = fs.readFileSync("lib/Controller.js");
+        fs.exists('./api/controllers', function(isExist) {
+            if (isExist) {
+                controller = _.replace(controller, new RegExp('NewController', "g"), apiName);
+                var write = fs.writeFileSync("api/controllers/" + apiName + "Controller.js", controller);
+                console.log("Controller " + apiName + " Generated");
+            } else {
+                console.log("Controller Folder not found");
 
-        var contoller = fs.readFileSync("lib/Controller.js");
-        fs.writeFileSync("./api/controllers",controller);
+            }
 
-        // fs.writeFile("", "Hey there!", function(err) {
-        //     if (err) {
-        //         return console.log(err);
-        //     }
-        //     console.log("The file was saved!");
-        // });
+        });
+
+        var service = fs.readFileSync("lib/Service.js");
+        fs.exists('./api/services', function(isExist) {
+            if (isExist) {
+                service = _.replace(service, new RegExp('NewService', "g"), apiName);
+                var write = fs.writeFileSync("api/services/" + apiName + ".js", service);
+                console.log("Service " + apiName + " Generated");
+            } else {
+                console.log("Service Folder not found");
+            }
+
+        });
+
+
     }
 }
 
