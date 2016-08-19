@@ -30,12 +30,11 @@ function complete() {
 if (program.generate) {
 
     if (program.generate === true) {
-
         console.log("Please provide a name for the Controller and Service");
     } else {
         console.log("Copying the Content");
         var apiName = _.upperFirst(program.generate);
-        var controller = fs.readFileSync("lib/Controller.js");
+        var controller = fs.readFileSync(__dirname + "/lib/Controller.js");
         fs.exists('./api/controllers', function(isExist) {
             if (isExist) {
                 controller = _.replace(controller, new RegExp('NewController', "g"), apiName);
