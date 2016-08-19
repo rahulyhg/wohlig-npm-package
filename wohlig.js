@@ -13,7 +13,7 @@ var mv = require('mv');
 
 
 program
-    .version('0.0.10')
+    .version('0.0.11')
     .option('-a, --angular [foldername]', 'Angular Frontend Framework')
     .option('-g, --generate [foldername]', 'Generate Frontend Framework')
     .parse(process.argv);
@@ -36,7 +36,6 @@ if (program.generate) {
         var apiName = _.upperFirst(program.generate);
 
         var controller = fs.readFileSync(__dirname + "/lib/Controller.js");
-        console.log(controller);
         fs.exists('api/controllers', function(isExist) {
             if (isExist) {
                 controller = _.replace(controller, new RegExp('NewController', "g"), apiName);
@@ -48,8 +47,8 @@ if (program.generate) {
             }
 
         });
+
         var service = fs.readFileSync(__dirname + "/lib/Service.js");
-        console.log(service);
         fs.exists('./api/services', function(isExist) {
             if (isExist) {
                 service = _.replace(service, new RegExp('NewService', "g"), apiName);
