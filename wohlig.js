@@ -13,7 +13,7 @@ var mv = require('mv');
 
 
 program
-    .version('0.0.8')
+    .version('0.0.10')
     .option('-a, --angular [foldername]', 'Angular Frontend Framework')
     .option('-g, --generate [foldername]', 'Generate Frontend Framework')
     .parse(process.argv);
@@ -48,19 +48,18 @@ if (program.generate) {
             }
 
         });
+        var service = fs.readFileSync(__dirname + "/lib/Service.js");
+        console.log(service);
+        fs.exists('./api/services', function(isExist) {
+            if (isExist) {
+                service = _.replace(service, new RegExp('NewService', "g"), apiName);
+                var write = fs.writeFileSync("api/services/" + apiName + ".js", service);
+                console.log("Service " + apiName + " Generated");
+            } else {
+                console.log("Service Folder not found");
+            }
 
-        // var service = fs.readFileSync(__dirname + "/lib/Service.js");
-        // console.log(service);
-        // fs.exists('./api/services', function(isExist) {
-        //     if (isExist) {
-        //         service = _.replace(service, new RegExp('NewService', "g"), apiName);
-        //         var write = fs.writeFileSync("api/services/" + apiName + ".js", service);
-        //         console.log("Service " + apiName + " Generated");
-        //     } else {
-        //         console.log("Service Folder not found");
-        //     }
-        //
-        // });
+        });
 
 
     }
