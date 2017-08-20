@@ -6,9 +6,6 @@ var program = require('commander');
 var chalk = require('chalk');
 var async = require('async');
 var fs = require("fs");
-var del = require('delete');
-var mv = require('mv');
-var download = require('download-file');
 var downloadGit = require('download-github-repo');
 
 //colored console
