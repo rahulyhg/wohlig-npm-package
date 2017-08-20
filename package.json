@@ -1,6 +1,6 @@
 {
   "name": "wohlig",
-  "version": "0.0.14",
+  "version": "0.0.16",
   "description": "Wohlig Technology Frameworks",
   "main": "index.js",
   "scripts": {

@@ -13,7 +13,7 @@ var mv = require('mv');
 
 
 program
-    .version('0.0.12')
+    .version('0.0.16')
     .option('-a, --angular [foldername]', 'Angular Frontend Framework')
     .option('-g, --generate [foldername]', 'Generate Frontend Framework')
     .parse(process.argv);
@@ -36,7 +36,7 @@ if (program.generate) {
         var apiName = _.upperFirst(program.generate);
 
         var controller = fs.readFileSync(__dirname + "/lib/Controller.js");
-        fs.exists('api/controllers', function(isExist) {
+        fs.exists('api/controllers', function (isExist) {
             if (isExist) {
                 controller = _.replace(controller, new RegExp('NewController', "g"), apiName);
                 var write = fs.writeFileSync("api/controllers/" + apiName + "Controller.js", controller);
@@ -49,7 +49,7 @@ if (program.generate) {
         });
 
         var service = fs.readFileSync(__dirname + "/lib/Service.js");
-        fs.exists('./api/services', function(isExist) {
+        fs.exists('./api/services', function (isExist) {
             if (isExist) {
                 service = _.replace(service, new RegExp('NewService', "g"), apiName);
                 var write = fs.writeFileSync("api/services/" + apiName + ".js", service);
@@ -70,7 +70,7 @@ if (program.angular) {
     } else {
         console.log('Downloading Angular Framework Frontend');
         download('https://github.com/WohligTechnology/AngularFrameworkFrontend/archive/master.zip', './')
-            .on('close', function(err) {
+            .on('close', function (err) {
                 if (err) {
                     console.log("Error Downloading Angular Framework Frontend");
                     console.log(err);
@@ -78,13 +78,13 @@ if (program.angular) {
                     console.log("Downloading Completed");
                     extract("master.zip", {
                         dir: "./"
-                    }, function(err) {
+                    }, function (err) {
                         if (err) {
                             console.log("Error while Extracting");
                             console.log(err);
                         } else {
                             console.log("Completed Extraction");
-                            mv('AngularFrameworkFrontend-master', program.angular, function(err) {
+                            mv('AngularFrameworkFrontend-master', program.angular, function (err) {
                                 if (err) {
                                     console.log("Error Renaming the folder");
                                     console.log(err);
@@ -93,7 +93,7 @@ if (program.angular) {
                                 }
 
                             });
-                            del(['master.zip'], function(err) {
+                            del(['master.zip'], function (err) {
                                 if (err) {
                                     console.log("Error Deleting the Zip");
                                     console.log(err);
