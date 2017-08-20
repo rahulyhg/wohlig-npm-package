@@ -1,31 +1,39 @@
 #!/usr/bin/env node
 
+//all dependencies
 var _ = require('lodash');
 var program = require('commander');
-var download = require('url-download');
+var chalk = require('chalk');
+var async = require('async');
 var fs = require("fs");
-var extract = require('extract-zip');
 var del = require('delete');
 var mv = require('mv');
+var download = require('download-file');
+var downloadGit = require('download-github-repo');
 
-// async
+//colored console
+global.blue = function (data) {
+    console.log(chalk.blue(data));
+};
+global.red = function (data) {
+    console.log(chalk.red(data));
+};
+global.green = function (data) {
+    console.log(chalk.green(data));
+};
+global.log = function (data) {
+    console.log(data);
+};
 
 
 
 program
-    .version('0.0.16')
-    .option('-a, --angular [foldername]', 'Angular Frontend Framework')
+    .version('0.0.17')
+    .option('-n, --new [foldername]', 'Generate New  Framework')
     .option('-g, --generate [foldername]', 'Generate Frontend Framework')
     .parse(process.argv);
 
-var i = 0;
 
-function complete() {
-    i++;
-    if (i == 2) {
-        console.log('Angular Frontend Framework is successfully installed');
-    }
-}
 
 if (program.generate) {
 
@@ -64,46 +72,23 @@ if (program.generate) {
     }
 }
 
-if (program.angular) {
-    if (program.angular === true) {
-        console.log("Please provide a Folder Name");
+if (program.new) {
+    if (program.new === true) {
+        red("Please provide a Folder Name");
     } else {
-        console.log('Downloading Angular Framework Frontend');
-        download('https://github.com/WohligTechnology/AngularFrameworkFrontend/archive/master.zip', './')
-            .on('close', function (err) {
-                if (err) {
-                    console.log("Error Downloading Angular Framework Frontend");
-                    console.log(err);
-                } else {
-                    console.log("Downloading Completed");
-                    extract("master.zip", {
-                        dir: "./"
-                    }, function (err) {
-                        if (err) {
-                            console.log("Error while Extracting");
-                            console.log(err);
-                        } else {
-                            console.log("Completed Extraction");
-                            mv('AngularFrameworkFrontend-master', program.angular, function (err) {
-                                if (err) {
-                                    console.log("Error Renaming the folder");
-                                    console.log(err);
-                                } else {
-                                    complete();
-                                }
-
-                            });
-                            del(['master.zip'], function (err) {
-                                if (err) {
-                                    console.log("Error Deleting the Zip");
-                                    console.log(err);
-                                } else {
-                                    complete();
-                                }
-                            });
-                        }
-                    });
-                }
-            });
+        var folderName = program.new;
+        async.waterfall([
+            function (callback) { // Downloading file 
+                console.log("Downloading from Github");
+                downloadGit("WohligTechnology/nodeFramework", folderName, callback);
+            }
+        ], function (err) {
+            if (err) {
+                red("Error Occured ");
+                console.error(err);
+            } else {
+                green("Your New New Framework is Ready in Folder " + folderName);
+            }
+        });
     }
 }
